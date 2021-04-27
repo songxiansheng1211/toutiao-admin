@@ -1,11 +1,11 @@
 <template>
-<div>
-   首页
-</div>
+    <div>
+        素材
+    </div>
 </template>
 <script>
 export default {
-  name: 'ArticleIndex'
+
 }
 </script>
 <style lang="less" scoped>

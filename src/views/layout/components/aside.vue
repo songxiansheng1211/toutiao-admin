@@ -1,15 +1,19 @@
 <template>
     <div>
-        <div class="top_image">
-            <img src="../logo_index.png">
-        </div>
+
          <el-menu
       default-active="/"
       background-color="#002033"
       text-color="#fff"
       active-text-color="#ffd04b"
       router
+      :collapse="isCollapse"
       >
+      <el-menu-item>
+        <div class="top_image">
+            <img src="../logo_index.png">
+        </div>
+      </el-menu-item>
       <el-menu-item index="/">
         <i class="iconfont iconindexactive"></i>
         <span slot="title">首页</span>
@@ -44,12 +48,14 @@
 <script>
 export default {
   name: 'AppAside',
+  props: ['is-collapse'],
   data () {
     return {
-
+      // isCollapse: false
     }
   },
-  methods: {}
+  methods: {
+  }
 }
 
 </script>

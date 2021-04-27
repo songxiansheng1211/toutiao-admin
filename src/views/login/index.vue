@@ -70,6 +70,8 @@ export default {
       login(this.loginForm).then(res => {
         console.log(res)
         this.$message.success('登录成功')
+        // 本地存储智能存储字符串 通过 JSON 转为字符串进行存储
+        sessionStorage.setItem('token', JSON.stringify(res.data.data))
         this.$router.push({
           name: 'home'
         })

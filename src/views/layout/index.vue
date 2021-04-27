@@ -1,13 +1,17 @@
 <template>
  <div>
 <el-container class="container">
-  <el-aside width="200px" >
-      <app-aside class="aside_menu" />
+  <el-aside width="auto">
+      <app-aside class="aside_menu" :is-collapse="isCollapse" />
   </el-aside>
   <el-container>
     <el-header>
         <div>
-          <i class="el-icon-s-fold"></i>
+          <i
+          :class="{
+          'el-icon-s-fold':isCollapse,
+          'el-icon-s-unfold':!isCollapse
+          }" @click="toggleCollapse"></i>
           <span>泰山信息科技有限公司</span>
         </div>
         <el-dropdown>
@@ -16,9 +20,10 @@
               <span class="font_size">{{user.name}}</span>
               <i class="el-icon-arrow-down el-icon--right"></i>
           </div>
-          <el-dropdown-menu slot="dropdown">
+          <el-dropdown-menu slot="dropdown" >
             <el-dropdown-item>设置</el-dropdown-item>
-            <el-dropdown-item>退出</el-dropdown-item>
+            <!-- 组件默认不认识别原生事件 除非内部做了处理 要想实现后面加上native -->
+            <el-dropdown-item @click.native="logOut">退出</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
         <!-- <i class="el-icon-s-unfold"></i> -->
@@ -37,7 +42,8 @@ export default {
   name: 'layoutIndex',
   data () {
     return {
-      user: {}
+      user: {},
+      isCollapse: false
     }
   },
   components: {
@@ -50,6 +56,19 @@ export default {
     loadUser () {
       getUserInfo().then(res => {
         this.user = res.data.data
+      })
+    },
+    toggleCollapse () {
+      this.isCollapse = !this.isCollapse
+    },
+    logOut () {
+      this.$alert('是否要退出？', '退出', {
+        confirmButtonText: '确定',
+        callback: action => {
+          window.sessionStorage.clear()
+          this.$router.push('/login')
+          this.$message.success('退出成功')
+        }
       })
     }
   }
@@ -88,10 +107,9 @@ export default {
         font-size: 12px;
     }
     }
-
 }
 .el-main{
-    background-color: pink;
+    background-color: #eee;
 }
 }
 
