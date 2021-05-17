@@ -73,7 +73,7 @@
     <el-table-column prop="pubdate" label="发布时间"></el-table-column>
     <el-table-column label="操作">
         <template v-slot="scope">
-        <el-button type="primary" icon="el-icon-edit" circle size="mini"></el-button>
+        <el-button type="primary" icon="el-icon-edit" circle size="mini" @click="$router.push('/publish?id=' + scope.row.id)"></el-button>
         <el-button type="danger" icon="el-icon-delete" circle size="mini" @click="onDeleteArticle(scope.row.id)"></el-button>
         </template>
     </el-table-column>
@@ -141,6 +141,7 @@ export default {
     },
     handleSizeChange (val) {
       this.queryForm.per_page = val
+      this.queryForm.page = 1
       this.loadArticles()
     },
     handleCurrentChange (val) {

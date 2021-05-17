@@ -21,3 +21,22 @@ export const getUserInfo = () => {
     // }
   })
 }
+
+// 修改用户头像
+// data必须传 formdata对象
+export const userPreviewImg = data => {
+  return request({
+    method: 'PATCH',
+    url: '/mp/v1_0/user/photo',
+    data
+  })
+}
+
+// 编辑用户资料
+export const editUserInfo = data => {
+  return request({
+    method: 'PATCH',
+    url: '/mp/v1_0/user/profile',
+    data
+  })
+}

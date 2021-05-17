@@ -30,3 +30,34 @@ export const deleteEssay = articleId => {
     url: `/mp/v1_0/articles/${articleId}`
   })
 }
+
+// 将draft 设置一个默认值 不传的时候默认不存草稿 要项设置默认值
+// 在传参的时候设置默认值需要 将他放在后面（有多个参数 需要设置默认值的放在最后面）
+export const newPublish = (data, draft = false) => {
+  return request({
+    method: 'POST',
+    url: '/mp/v1_0/articles',
+    params: {
+      draft: draft
+    },
+    data
+  })
+}
+// 修改提交
+export const editPublish = (articleId, data, draft = false) => {
+  return request({
+    method: 'PUT',
+    url: `/mp/v1_0/articles/${articleId}`,
+    params: {
+      draft
+    },
+    data
+  })
+}
+// 获取文章展示数据
+export const getPublish = (articleId) => {
+  return request({
+    method: 'GET',
+    url: `/mp/v1_0/articles/${articleId}`
+  })
+}

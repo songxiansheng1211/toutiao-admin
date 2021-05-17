@@ -38,6 +38,7 @@
 <script>
 import AppAside from './components/aside'
 import { getUserInfo } from '@/api/user'
+import globalBus from '@/utils/global-bus.js'
 export default {
   name: 'layoutIndex',
   data () {
@@ -50,7 +51,16 @@ export default {
     AppAside
   },
   created () {
+    globalBus.$on('global-img', data => {
+      this.user.photo = data.photo
+    })
+    globalBus.$on('global-user', data => {
+      this.user.name = data.name
+    })
     this.loadUser()
+  },
+  mounted () {
+
   },
   methods: {
     loadUser () {
@@ -62,13 +72,19 @@ export default {
       this.isCollapse = !this.isCollapse
     },
     logOut () {
-      this.$alert('是否要退出？', '退出', {
+      this.$confirm('你不再爱昊昊了吗？要退出了吗', '提示', {
         confirmButtonText: '确定',
-        callback: action => {
-          window.sessionStorage.clear()
-          this.$router.push('/login')
-          this.$message.success('退出成功')
-        }
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        window.sessionStorage.clear()
+        this.$router.push('/login')
+        this.$message.success('退出成功')
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '取消退出'
+        })
       })
     }
   }
