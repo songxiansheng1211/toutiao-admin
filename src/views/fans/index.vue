@@ -5,7 +5,7 @@
         <div slot="header" class="clearfix">
           <el-breadcrumb separator-class="el-icon-arrow-right">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>粉丝管理</el-breadcrumb-item>
+            <el-breadcrumb-item>粉丝管理小伙子</el-breadcrumb-item>
           </el-breadcrumb>
         </div>
         <div class="table">
