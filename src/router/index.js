@@ -9,6 +9,10 @@ import Publish from '@/views/publish/index.vue'
 import Comment from '@/views/comment/index.vue'
 import Settings from '@/views/settings/index.vue'
 import Fans from '@/views/fans/index.vue'
+import Service from '@/views/service/index.vue'
+import Company from '@/views/company/index.vue'
+import Echarts from '@/views/echarts/index.vue'
+import TestBox from '@/views/testbox/index.vue'
 
 Vue.use(VueRouter)
 
@@ -26,7 +30,11 @@ const routes = [
       { path: '/publish', name: 'publish', component: Publish },
       { path: '/comment', name: 'comment', component: Comment },
       { path: '/settings', name: 'settings', component: Settings },
-      { path: '/fans', name: 'fans', component: Fans }
+      { path: '/fans', name: 'fans', component: Fans },
+      { path: '/service', name: 'service', component: Service },
+      { path: '/company', name: 'company', component: Company },
+      { path: '/echarts', name: 'echarts', component: Echarts },
+      { path: '/testbox', name: 'testbox', component: TestBox }
     ]
   }
 ]

@@ -12,6 +12,7 @@
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "cropperjs": "^1.5.11",
+    "echarts": "^5.1.1",
     "element-tiptap": "^1.26.2",
     "element-ui": "^2.15.1",
     "vue": "^2.6.11",

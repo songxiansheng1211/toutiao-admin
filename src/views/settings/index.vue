@@ -101,6 +101,7 @@ export default {
       // 让选中的图片在对话框中预览 （记住）
       const file = this.$refs.file
       const blobData = window.URL.createObjectURL(file.files[0])
+      console.log(blobData)
       this.previewImg = blobData
       // 解决在选择相同文件时 change不触发的问题
       this.$refs.file.value = ''

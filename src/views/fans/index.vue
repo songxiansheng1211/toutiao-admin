@@ -5,7 +5,7 @@
         <div slot="header" class="clearfix">
           <el-breadcrumb separator-class="el-icon-arrow-right">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>粉丝管理小伙子</el-breadcrumb-item>
+            <el-breadcrumb-item>粉丝管理</el-breadcrumb-item>
           </el-breadcrumb>
         </div>
         <div class="table">
@@ -27,9 +27,24 @@
                   </div>
                   </el-col>
                 </el-row>
+                <pie-chart></pie-chart>
               </div>
             </el-tab-pane>
-            <el-tab-pane label="粉丝画像"></el-tab-pane>
+            <el-tab-pane label="粉丝画像">
+              <el-card>
+               <div ref="main" style="width: 750px;height:400px;"></div>
+               <mapDeom></mapDeom>
+               <mapBai></mapBai>
+              </el-card>
+            </el-tab-pane>
+            <el-tab-pane label="地图测试">
+              <el-card>
+                <div class="map-test">
+               <bmapDeom></bmapDeom>
+               <bar></bar>
+                </div>
+              </el-card>
+            </el-tab-pane>
           </el-tabs>
         </div>
         <el-pagination
@@ -45,6 +60,12 @@
     </div>
 </template>
 <script>
+import bmapDeom from './components/bmap-demo'
+import mapDeom from './components/index'
+import mapBai from './components/map'
+import bar from './components/bar'
+import pieChart from './components/pie-chart.vue'
+import * as echarts from 'echarts'
 import { getFansData } from '@/api/fans'
 export default {
   name: 'fansIndex',
@@ -58,6 +79,13 @@ export default {
       attention: false,
       total: 0
     }
+  },
+  components: {
+    mapDeom,
+    mapBai,
+    bmapDeom,
+    bar,
+    pieChart
   },
   methods: {
     getFansList () {
@@ -81,6 +109,31 @@ export default {
   },
   created () {
     this.getFansList()
+  },
+  mounted () {
+    var myChart = echarts.init(this.$refs.main)
+
+    // 指定图表的配置项和数据
+    var option = {
+      title: {
+        text: 'ECharts 入门示例'
+      },
+      tooltip: {},
+      legend: {
+        data: ['销量']
+      },
+      xAxis: {
+        data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+      },
+      yAxis: {},
+      series: [{
+        name: '销量',
+        type: 'bar',
+        data: [5, 20, 36, 10, 10, 20]
+      }]
+    }
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option)
   }
 }
 </script>
@@ -113,4 +166,7 @@ margin-top: 10px;
   text-align: right;
   margin-top: 10px;
 }
+// .map-test {
+//   display: flex;
+// }
 </style>

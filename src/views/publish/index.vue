@@ -23,6 +23,22 @@
               <el-radio :label="0">无图</el-radio>
               <el-radio :label="-1">自动</el-radio>
             </el-radio-group>
+            <template v-if="publishForm.cover.type > 0">
+              <!-- 在事件处理函数自定义传参还想要传递本身的参数 需要使用 $event 传递的就是本身的参数 -->
+              <!-- <upload-cover v-for="(cover,index) in publishForm.cover.type"
+              :key="cover"
+              :transmit-img ='publishForm.cover.images[index]'
+              @updata-cover="onUpdataCover(index, $event)"></upload-cover> -->
+
+              <!-- 在 子组件中使用 v-model
+              当给 子组件提供的数据既要展示 又要修改的时候 这时候我们可以通过 v-model简化数据绑定
+              默认给子组件传递一个名字叫 value的数据  和默认监听一个 input事件
+              所以 在props 和 $emit 事件中的 就变成 vaule（默认） 和 input（默认）
+              注意：v-model本质还是父子通讯-->
+              <upload-cover v-for="(cover,index) in publishForm.cover.type"
+              :key="cover"
+              v-model="publishForm.cover.images[index]"></upload-cover>
+            </template>
           </el-form-item>
           <el-form-item label="频道">
             <el-select v-model="publishForm.channel_id" placeholder="请选择">
@@ -39,9 +55,11 @@
     </div>
 </template>
 <script>
+import uploadCover from './components/cover'
 import 'element-tiptap/lib/index.css'
 import { getChannel, newPublish, getPublish, editPublish } from '@/api/article'
 export default {
+  name: 'publishIndex',
   data () {
     return {
       publishForm: {
@@ -74,6 +92,9 @@ export default {
         ]
       }
     }
+  },
+  components: {
+    uploadCover
   },
   methods: {
     loadChannel () {
@@ -109,6 +130,9 @@ export default {
         this.publishForm = res.data.data
       })
     }
+    // onUpdataCover (index, url) {
+    //   this.publishForm.cover.images[index] = url
+    // }
   },
   created () {
     this.loadChannel()

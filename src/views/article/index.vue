@@ -72,9 +72,9 @@
     </el-table-column>
     <el-table-column prop="pubdate" label="发布时间"></el-table-column>
     <el-table-column label="操作">
-        <template v-slot="scope">
-        <el-button type="primary" icon="el-icon-edit" circle size="mini" @click="$router.push('/publish?id=' + scope.row.id)"></el-button>
-        <el-button type="danger" icon="el-icon-delete" circle size="mini" @click="onDeleteArticle(scope.row.id)"></el-button>
+        <template #default="{ row }">
+        <el-button type="primary" icon="el-icon-edit" circle size="mini" @click="$router.push('/publish?id=' + row.id)"></el-button>
+        <el-button type="danger" icon="el-icon-delete" circle size="mini" @click="onDeleteArticle(row.id)"></el-button>
         </template>
     </el-table-column>
   </el-table>
@@ -154,14 +154,13 @@ export default {
       })
     },
     onDeleteArticle (id) {
-      this.$alert('是否要删除吗？', '删除', {
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
         deleteEssay(id).then(res => {
-          console.log(res)
-          this.loadArticles()
+          this.$message.success('删除成功')
         })
       }).catch(() => {
         this.$message({

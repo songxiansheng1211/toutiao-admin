@@ -42,6 +42,22 @@
         <i class="iconfont iconsetting"></i>
         <span slot="title">个人设置</span>
       </el-menu-item>
+              <el-menu-item index="service">
+        <i class="iconfont iconsetting"></i>
+        <span slot="title">服务管理</span>
+      </el-menu-item>
+              <el-menu-item index="company">
+        <i class="iconfont iconsetting"></i>
+        <span slot="title">企业员工</span>
+      </el-menu-item>
+      <el-menu-item index="echarts">
+        <i class="iconfont iconsetting"></i>
+        <span slot="title">echarts</span>
+      </el-menu-item>
+      <el-menu-item index="testbox">
+        <i class="iconfont iconsetting"></i>
+        <span slot="title">testbox</span>
+      </el-menu-item>
     </el-menu>
     </div>
 </template>
