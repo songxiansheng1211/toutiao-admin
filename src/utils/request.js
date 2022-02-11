@@ -3,8 +3,9 @@ import axios from 'axios'
 
 // 2. 创建一个 axios 实例
 const request = axios.create({
-  baseURL: 'http://api-toutiao-web.itheima.net'
+  baseURL: 'http://10.10.100.40:1234'
 })
+export default request
 
 // 请求拦截器
 // 所有请求会经过这里
@@ -14,11 +15,10 @@ request.interceptors.request.use(config => {
   // 最后必须 return config
   const user = JSON.parse(sessionStorage.getItem('token'))
   if (user) {
-    config.headers.Authorization = `Bearer ${user.token}`
+    config.headers.Authorization = user
   }
   return config
 })
 
 // 3 导出请求方法
-export default request
 // 谁要使用就加载request 模块

@@ -12,7 +12,7 @@
           'el-icon-s-fold':isCollapse,
           'el-icon-s-unfold':!isCollapse
           }" @click="toggleCollapse"></i>
-          <span>泰山信息科技有限公司</span>
+          <span style="margin-left:5px;">练习</span>
         </div>
         <el-dropdown>
           <div class="avator_warp">
@@ -21,7 +21,7 @@
               <i class="el-icon-arrow-down el-icon--right"></i>
           </div>
           <el-dropdown-menu slot="dropdown" >
-            <el-dropdown-item>设置</el-dropdown-item>
+            <!-- <el-dropdown-item @click.native="personel">设置</el-dropdown-item> -->
             <!-- 组件默认不认识别原生事件 除非内部做了处理 要想实现后面加上native -->
             <el-dropdown-item @click.native="logOut">退出</el-dropdown-item>
           </el-dropdown-menu>
@@ -37,7 +37,7 @@
 </template>
 <script>
 import AppAside from './components/aside'
-import { getUserInfo } from '@/api/user'
+// import { getUserInfo } from '@/api/user'
 import globalBus from '@/utils/global-bus.js'
 export default {
   name: 'layoutIndex',
@@ -57,22 +57,22 @@ export default {
     globalBus.$on('global-user', data => {
       this.user.name = data.name
     })
-    this.loadUser()
+    // this.loadUser()
   },
   mounted () {
 
   },
   methods: {
-    loadUser () {
-      getUserInfo().then(res => {
-        this.user = res.data.data
-      })
-    },
+    // loadUser () {
+    //   getUserInfo().then(res => {
+    //     this.user = res.data.data
+    //   })
+    // },
     toggleCollapse () {
       this.isCollapse = !this.isCollapse
     },
     logOut () {
-      this.$confirm('你不再爱昊昊了吗？要退出了吗', '提示', {
+      this.$confirm('确定要退出登录吗？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
@@ -87,6 +87,10 @@ export default {
         })
       })
     }
+    // 设置
+    // personel () {
+    //   this.$router.push('/settings')
+    // }
   }
 }
 </script>
@@ -112,7 +116,6 @@ export default {
     .avator_warp{
         display: flex;
         align-items: center;
-
         .user_img{
         width: 30px;
         height: 30px;
@@ -128,7 +131,4 @@ export default {
     background-color: #eee;
 }
 }
-
-// }
-
 </style>

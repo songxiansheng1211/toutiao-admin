@@ -2,14 +2,15 @@
 <div class="login_container">
   <div class="login_box">
     <div class="box_header">
-        <img src="./logo_index.png" class="login_img">
+        <img src="./guanli.png" class="login_img">
+        <div class="login-text">核算预约管理系统</div>
     </div>
-      <el-form :model="loginForm" :rules="loginFormRules" ref="loginFormRef" size='mini' class="login_form">
-        <el-form-item prop="mobile">
-          <el-input v-model="loginForm.mobile" placeholder="请输入手机号"></el-input>
+      <el-form :model="loginForm"  ref="loginFormRef" :rules="loginFormRules" size='mini' class="login_form">
+        <el-form-item prop="username">
+          <el-input v-model="loginForm.username" placeholder="请输入账号"></el-input>
         </el-form-item>
-        <el-form-item prop="code">
-          <el-input v-model="loginForm.code" placeholder="请输入验证码"></el-input>
+        <el-form-item prop="password">
+          <el-input v-model="loginForm.password" placeholder="请输入密码" show-password></el-input>
         </el-form-item>
         <el-form-item prop="agree">
               <el-checkbox v-model="loginForm.agree"><span>我已阅读并同意用户协议和隐私条款</span></el-checkbox>
@@ -22,24 +23,23 @@
 </div>
 </template>
 <script>
+import axios from 'axios'
 import { login } from '@/api/user.js'
 export default {
   name: 'Login',
   data () {
     return {
       loginForm: {
-        mobile: '13911111111',
-        code: '246810',
+        username: '',
+        password: '',
         agree: false
       },
       loginFormRules: {
-        mobile: [
-          { required: true, message: '请输入手机号', trigger: 'blur' },
-          { pattern: /^1[3|5|7|8|9]\d{9}$/, message: '请输入正确的手机号', trigger: 'blur' }
+        username: [
+          { required: true, message: '请输入账号', trigger: 'change' }
         ],
-        code: [
-          { required: true, message: '请输入验证码', trigger: 'blur' },
-          { min: 4, max: 10, message: '请输入正确验证码', trigger: 'blur' }
+        password: [
+          { required: true, message: '请输入密码', trigger: 'change' }
         ],
         agree: [
           {
@@ -58,23 +58,21 @@ export default {
   },
   methods: {
     onLogin () {
-    //   const user = this.loginForm
-      this.$refs.loginFormRef.validate(valid => {
-        if (!valid) {
-          return
-        }
+      this.$refs.loginFormRef.validate().then(() => {
         this.getLogin()
       })
     },
     getLogin () {
       login(this.loginForm).then(res => {
-        console.log(res)
-        this.$message.success('登录成功')
-        // 本地存储智能存储字符串 通过 JSON 转为字符串进行存储
-        sessionStorage.setItem('token', JSON.stringify(res.data.data))
-        this.$router.push({
-          name: 'home'
-        })
+        if (res.data.code === 0) {
+          this.$message.success('登录成功')
+          // 本地存储智能存储字符串 通过 JSON 转为字符串进行存储
+          sessionStorage.setItem('role', JSON.stringify(res.data.data.identity))
+          sessionStorage.setItem('token', JSON.stringify(this.loginForm.username + ';' + res.data.data.userCookie))
+          this.$router.push({
+            name: 'home'
+          })
+        }
       }).catch(err => {
         console.log(err)
         this.$message.error('登陆失败')
@@ -90,7 +88,7 @@ export default {
      bottom: 0;
      left: 0;
      right: 0;
-     background:  url('./back.jpg') no-repeat ;
+     background:  url('./login.png') no-repeat ;
      background-size: cover;
      .login_box{
          background-color: #fff;
@@ -112,10 +110,18 @@ export default {
              margin-top: 10px;
              width: 100%;
              height: 28px;
-             text-align: center;
+            justify-content: center;
+            align-items: center;
+             display: flex;
              .login_img {
-                 width: 140px;
-                 height: 100%;
+                 width: 40px;
+                 height: 40px;
+                 margin-right: 5px;
+             }
+             .login-text {
+               font-size: 18px;
+               font-weight: 700;
+               color: #000;
              }
          }
 

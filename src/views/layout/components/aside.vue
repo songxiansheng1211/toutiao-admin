@@ -1,6 +1,5 @@
 <template>
     <div>
-
          <el-menu
       default-active="/"
       background-color="#002033"
@@ -11,52 +10,29 @@
       >
       <el-menu-item>
         <div class="top_image">
-            <img src="../logo_index.png">
+            <img src="../guanli.png">
+            <div style="margin-left:9px;">练习</div>
         </div>
       </el-menu-item>
-      <el-menu-item index="/">
-        <i class="iconfont iconindexactive"></i>
+      <el-menu-item index="/" v-if="role === '1'">
+        <i class="el-icon-s-home"></i>
         <span slot="title">首页</span>
       </el-menu-item>
-      <el-menu-item index="/article">
-        <i class="iconfont iconcontent"></i>
-        <span slot="title">内容管理</span>
+      <el-menu-item index="user" v-if="role === '1'">
+        <i class="el-icon-office-building"></i>
+        <span slot="title">用户管理</span>
       </el-menu-item>
-      <el-menu-item index="image">
-        <i class="iconfont iconimage"></i>
-        <span slot="title">素材管理</span>
+      <el-menu-item index="org" v-if="role === '1'">
+        <i class="el-icon-folder-opened"></i>
+        <span slot="title">检测机构管理</span>
       </el-menu-item>
-            <el-menu-item index="publish">
-        <i class="iconfont iconpublish"></i>
-        <span slot="title">发布文章</span>
+        <el-menu-item index="personnel" v-if="role === '1'">
+        <i class="el-icon-s-custom"></i>
+        <span slot="title">检测记录</span>
       </el-menu-item>
-            <el-menu-item index="comment">
-        <i class="iconfont iconcomment"></i>
-        <span slot="title">评论管理</span>
-      </el-menu-item>
-        <el-menu-item index="fans">
-        <i class="iconfont iconfans"></i>
-        <span slot="title">粉丝管理</span>
-      </el-menu-item>
-        <el-menu-item index="settings">
-        <i class="iconfont iconsetting"></i>
-        <span slot="title">个人设置</span>
-      </el-menu-item>
-              <el-menu-item index="service">
-        <i class="iconfont iconsetting"></i>
-        <span slot="title">服务管理</span>
-      </el-menu-item>
-              <el-menu-item index="company">
-        <i class="iconfont iconsetting"></i>
-        <span slot="title">企业员工</span>
-      </el-menu-item>
-      <el-menu-item index="echarts">
-        <i class="iconfont iconsetting"></i>
-        <span slot="title">echarts</span>
-      </el-menu-item>
-      <el-menu-item index="testbox">
-        <i class="iconfont iconsetting"></i>
-        <span slot="title">testbox</span>
+      <el-menu-item index="settings" v-if="role === '3'">
+        <i class="el-icon-s-tools"></i>
+        <span slot="title">统计核酸</span>
       </el-menu-item>
     </el-menu>
     </div>
@@ -67,8 +43,12 @@ export default {
   props: ['is-collapse'],
   data () {
     return {
-      // isCollapse: false
+      // isCollapse: false,
+      role: ''
     }
+  },
+  created () {
+    this.role = JSON.parse(sessionStorage.getItem('role'))
   },
   methods: {
   }
@@ -85,11 +65,15 @@ export default {
    }
 }
 .top_image{
+  display: flex;
     background-color: #002033;
-    text-align: center;
+    // text-align: center;
+    // margin-right: 10px !important;
     img{
+      // margin-right: 10px !important;
         margin-top: 10px;
-            width: 150px;
+            width: 35px;
+            height:35px ;
     }
 }
 i {
