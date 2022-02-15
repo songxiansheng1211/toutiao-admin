@@ -12,7 +12,7 @@
           'el-icon-s-fold':isCollapse,
           'el-icon-s-unfold':!isCollapse
           }" @click="toggleCollapse"></i>
-          <span style="margin-left:5px;">练习</span>
+          <span style="margin-left:5px;">{{userName}}，欢迎您！</span>
         </div>
         <el-dropdown>
           <div class="avator_warp">
@@ -38,26 +38,28 @@
 <script>
 import AppAside from './components/aside'
 // import { getUserInfo } from '@/api/user'
-import globalBus from '@/utils/global-bus.js'
+// import globalBus from '@/utils/global-bus.js'
 export default {
   name: 'layoutIndex',
   data () {
     return {
       user: {},
-      isCollapse: false
+      isCollapse: false,
+      userName: ''
     }
   },
   components: {
     AppAside
   },
   created () {
-    globalBus.$on('global-img', data => {
-      this.user.photo = data.photo
-    })
-    globalBus.$on('global-user', data => {
-      this.user.name = data.name
-    })
+    // globalBus.$on('global-img', data => {
+    //   this.user.photo = data.photo
+    // })
+    // globalBus.$on('global-user', data => {
+    //   this.user.name = data.name
+    // })
     // this.loadUser()
+    this.userName = JSON.parse(sessionStorage.getItem('username'))
   },
   mounted () {
 

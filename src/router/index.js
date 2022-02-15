@@ -5,8 +5,12 @@ import Home from '../views/home/index.vue'
 import Layout from '../views/layout/index.vue'
 import User from '@/views/user/index.vue'
 import Org from '@/views/org/index.vue'
-import Personnel from '@/views/personnel/index.vue'
-import Settings from '@/views/settings/index.vue'
+import Record from '@/views/record/index.vue'
+import Type from '@/views/type/index.vue'
+import Register from '@/views/register/index.vue'
+import Report from '@/views/report/index.vue'
+import Check from '@/views/check/index.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -17,11 +21,14 @@ const routes = [
     component: Layout,
     // path 为空时 会默认渲染为子路由 有子路由时就不要给父路由起名字了
     children: [
-      { path: '', name: 'home', component: Home },
+      { path: '/', name: 'home', component: Home },
       { path: '/user', name: 'user', component: User },
       { path: '/org', name: 'org', component: Org },
-      { path: '/personnel', name: 'personnel', component: Personnel },
-      { path: '/settings', name: 'settings', component: Settings }
+      { path: '/record', name: 'record', component: Record },
+      { path: '/type', name: 'type', component: Type },
+      { path: '/register', name: 'register', component: Register },
+      { path: '/report', name: 'report', component: Report },
+      { path: '/check', name: 'check', component: Check }
     ]
   }
 ]

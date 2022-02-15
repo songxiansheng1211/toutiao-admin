@@ -3,8 +3,8 @@ import moment from 'moment'
 export function getWeekDay () {
   // 可以修改成传递参数查根据当前时间 几天或者后几天的日期以及星期
   const WeekOfDay = moment().format('E')
-  const lastMonDay = moment().subtract(11 - WeekOfDay, 'days').format('YYYYMMDD')
-  const lastSunday = moment().add(5 - WeekOfDay, 'days').format('YYYYMMDD')
+  const lastMonDay = moment().subtract(6, 'days').format('YYYYMMDD')
+  const lastSunday = moment().add(0, 'days').format('YYYYMMDD')
   const arr = []
   for (let i = lastMonDay; i <= lastSunday; i++) {
     // 将每个日期转为字符串

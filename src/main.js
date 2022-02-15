@@ -10,7 +10,8 @@ import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 // 加载全局样式
 import './styles/index.less'
-
+import htmlToPdf from '@/utils/htmlToPdf'
+Vue.use(htmlToPdf)
 Vue.use(VueQuillEditor)
 Vue.config.productionTip = false
 Vue.use(ElementUI)

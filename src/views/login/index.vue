@@ -68,7 +68,12 @@ export default {
           this.$message.success('登录成功')
           // 本地存储智能存储字符串 通过 JSON 转为字符串进行存储
           sessionStorage.setItem('role', JSON.stringify(res.data.data.identity))
-          sessionStorage.setItem('token', JSON.stringify(this.loginForm.username + ';' + res.data.data.userCookie))
+          sessionStorage.setItem('username', JSON.stringify(res.data.data.username))
+          sessionStorage.setItem('userId', JSON.stringify(res.data.data.id))
+          if (res.data.data.identity === '2') {
+            sessionStorage.setItem('userCookie', res.data.data.userCookie)
+          }
+          sessionStorage.setItem('token', JSON.stringify('5f23bf7c-5bcc-4189-8d9c-43aea35d0471'))
           this.$router.push({
             name: 'home'
           })
@@ -114,8 +119,8 @@ export default {
             align-items: center;
              display: flex;
              .login_img {
-                 width: 40px;
-                 height: 40px;
+                 width: 30px;
+                 height: 30px;
                  margin-right: 5px;
              }
              .login-text {

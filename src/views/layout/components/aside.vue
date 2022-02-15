@@ -10,11 +10,11 @@
       >
       <el-menu-item>
         <div class="top_image">
-            <img src="../guanli.png">
-            <div style="margin-left:9px;">练习</div>
+            <img src="./guanli.png">
+            <div style="margin-left:14px;">核酸预约管理系统</div>
         </div>
       </el-menu-item>
-      <el-menu-item index="/" v-if="role === '1'">
+      <el-menu-item index="/">
         <i class="el-icon-s-home"></i>
         <span slot="title">首页</span>
       </el-menu-item>
@@ -26,13 +26,25 @@
         <i class="el-icon-folder-opened"></i>
         <span slot="title">检测机构管理</span>
       </el-menu-item>
-        <el-menu-item index="personnel" v-if="role === '1'">
+      <el-menu-item index="type" v-if="role === '1'">
+        <i class="el-icon-s-custom"></i>
+        <span slot="title">检测类型</span>
+      </el-menu-item>
+        <el-menu-item index="record" v-if="role === '1'">
         <i class="el-icon-s-custom"></i>
         <span slot="title">检测记录</span>
       </el-menu-item>
-      <el-menu-item index="settings" v-if="role === '3'">
+      <el-menu-item index="register" v-if="role === '3'">
         <i class="el-icon-s-tools"></i>
-        <span slot="title">统计核酸</span>
+        <span slot="title">立即预约</span>
+      </el-menu-item>
+      <el-menu-item index="report" v-if="role === '3'">
+        <i class="el-icon-s-tools"></i>
+        <span slot="title">报告查询</span>
+      </el-menu-item>
+       <el-menu-item index="check" v-if="role === '2'">
+        <i class="el-icon-s-tools"></i>
+        <span slot="title">检测列表</span>
       </el-menu-item>
     </el-menu>
     </div>
@@ -72,8 +84,8 @@ export default {
     img{
       // margin-right: 10px !important;
         margin-top: 10px;
-            width: 35px;
-            height:35px ;
+            width: 30px;
+            height:30px ;
     }
 }
 i {
