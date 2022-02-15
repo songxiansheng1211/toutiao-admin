@@ -28,13 +28,13 @@
         <template #default="{row}">
             <span v-if="row.result === '0'">阴性</span>
             <span v-if="row.result === '1'">阳性</span>
-            <span v-else>未查询到检测结果</span>
+            <span v-if="row.result !== '1' && row.result !== '0'">未查询到检测结果</span>
         </template>
       </el-table-column>
       <el-table-column prop="createTime" label="创建时间" align="center"></el-table-column>
       <el-table-column label="操作" align="center">
           <template #default="{row}">
-          <el-button type="text" size="mini" @click="checkDetail(row)">上传检查结果</el-button>
+          <el-button type="text" size="mini" @click="checkDetail(row)" v-if="row.result !== '1' && row.result !== '0'">上传检查结果</el-button>
           </template>
       </el-table-column>
     </el-table>
@@ -54,11 +54,16 @@
       :visible.sync="detailDialog"
       append-to-body
       width="650px">
-      <el-form ref="addFormRef"  :model="detailForm" label-width="80px" size="mini" label-suffix="：">
-        <el-select v-model="detailForm.idCard">
+      <el-form ref="addFormRef"  :model="detailForm" label-width="80px" size="mini" label-suffix="：" inline>
+      <el-form-item label="检测结果">
+      <el-select v-model="detailForm.result">
       <el-option label="阴性" value="0"></el-option>
-      <el-option label="阴性" value="1"></el-option>
+      <el-option label="阳性" value="1"></el-option>
     </el-select>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" :loading="saveLoading" @click="editResult">上传</el-button>
+      </el-form-item>
       </el-form>
       </el-dialog>
     </div>
@@ -75,6 +80,7 @@ export default {
         size: 10,
         idCard: ''
       },
+      saveLoading: false,
       tableData: [],
       tableLoading: false,
       total: 0,
@@ -108,7 +114,16 @@ export default {
       this.detailForm.username = row.username
       this.detailForm.itemName = row.itemName
       this.detailForm.createTime = row.createTime
-      this.detailForm.result = row.result || '未查询到检测结果'
+    },
+    editResult () {
+      this.saveLoading = true
+      resultData(this.detailForm).then(() => {
+        this.$message.success('上传检查结果成功')
+        this.detailDialog = false
+        this.getTableData()
+      }).finally(() => {
+        this.saveLoading = false
+      })
     }
   }
 }

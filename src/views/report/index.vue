@@ -28,7 +28,7 @@
         <template #default="{row}">
             <span v-if="row.result === '0'">阴性</span>
             <span v-if="row.result === '1'">阳性</span>
-            <span v-else>未查询到检测结果</span>
+            <span v-if="row.result !== '0' && row.result !== '1'">未查询到检测结果</span>
         </template>
       </el-table-column>
       <el-table-column prop="createTime" label="创建时间" align="center"></el-table-column>
