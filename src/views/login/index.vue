@@ -12,6 +12,13 @@
         <el-form-item prop="password">
           <el-input v-model="loginForm.password" placeholder="请输入密码" show-password></el-input>
         </el-form-item>
+         <el-form-item prop="identity">
+           <el-select v-model="loginForm.identity" placeholder="请选择登录身份" style="width:260px;">
+             <el-option label="系统管理员" value="1"></el-option>
+             <el-option label="医院机构" value="2"></el-option>
+             <el-option label="用户" value="3"></el-option>
+           </el-select>
+        </el-form-item>
         <el-form-item prop="agree">
               <el-checkbox v-model="loginForm.agree"><span>我已阅读并同意用户协议和隐私条款</span></el-checkbox>
         </el-form-item>
@@ -23,7 +30,7 @@
 </div>
 </template>
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 import { login } from '@/api/user.js'
 export default {
   name: 'Login',
@@ -32,7 +39,8 @@ export default {
       loginForm: {
         username: '',
         password: '',
-        agree: false
+        agree: false,
+        identity: ''
       },
       loginFormRules: {
         username: [
@@ -40,6 +48,9 @@ export default {
         ],
         password: [
           { required: true, message: '请输入密码', trigger: 'change' }
+        ],
+        identity: [
+          { required: true, message: '请选择登录身份', trigger: 'change' }
         ],
         agree: [
           {
@@ -64,6 +75,9 @@ export default {
     },
     getLogin () {
       login(this.loginForm).then(res => {
+        if (res.data.msg === '用户名或者密码不正确') {
+          return this.$message.error('用户名或者密码不正确或登录身份不正确')
+        }
         if (res.data.code === 0) {
           this.$message.success('登录成功')
           // 本地存储智能存储字符串 通过 JSON 转为字符串进行存储
@@ -98,7 +112,7 @@ export default {
      .login_box{
          background-color: #fff;
          width: 360px;
-         height: 240px;
+         height: 290px;
          border-radius: 3px;
          position: absolute;
          left: 50%;

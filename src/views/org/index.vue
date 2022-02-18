@@ -47,7 +47,7 @@
       append-to-body
       @closed="orgClosed"
       width="30%">
-      <el-form ref="addFormRef" v-if="orgDialog" :model="addForm" :rules="addFormRules" label-width="80px" size="mini" label-suffix="：">
+      <el-form ref="addFormRef" v-if="orgDialog" :model="addForm" :rules="addFormRules" label-width="110px" size="mini" label-suffix="：">
   <el-form-item label="机构名称" placeholder="请输入机构名称" prop="name">
     <el-input v-model="addForm.name" style="width:220px"></el-input>
   </el-form-item>
