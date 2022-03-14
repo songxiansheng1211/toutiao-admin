@@ -3,7 +3,7 @@ import axios from 'axios'
 
 // 2. 创建一个 axios 实例
 const request = axios.create({
-  baseURL: 'http://10.10.100.40:1234'
+  baseURL: 'http://127.0.0.1:1234'
 })
 export default request
 
