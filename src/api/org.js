@@ -41,3 +41,10 @@ export const resultData = (data) => {
     data
   })
 }
+
+export const checkOrder = (id, result) => {
+  return request({
+    method: 'get',
+    url: `/nucleicTest/shenhe/${id}/${result}`
+  })
+}

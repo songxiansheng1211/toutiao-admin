@@ -19,14 +19,14 @@
              <el-option label="用户" value="3"></el-option>
            </el-select>
         </el-form-item>
-        <el-form-item prop="agree">
+        <!-- <el-form-item prop="agree">
               <el-checkbox v-model="loginForm.agree"><span>我已阅读并同意用户协议和隐私条款</span></el-checkbox>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item>
-          <div class="login_btn">
-            <el-button type="primary" size='mini'  @click="onLogin">登录</el-button>
-            <el-button type="primary" size='mini'  @click="register">注册</el-button>
-          </div>
+          <!-- <div class="login_btn"> -->
+            <!-- <el-button type="primary" size='mini'  @click="onLogin">登录</el-button> -->
+            <el-button type="primary" size='mini' class="login_btn" @click="register">注册</el-button>
+          <!-- </div> -->
         </el-form-item>
       </el-form>
  </div>
@@ -34,7 +34,7 @@
 </template>
 <script>
 // import axios from 'axios'
-import { login } from '@/api/user.js'
+import { addUserData } from '@/api/user.js'
 export default {
   name: 'Login',
   data () {
@@ -42,7 +42,7 @@ export default {
       loginForm: {
         username: '',
         password: '',
-        agree: false,
+        // agree: false,
         identity: ''
       },
       loginFormRules: {
@@ -54,55 +54,31 @@ export default {
         ],
         identity: [
           { required: true, message: '请选择登录身份', trigger: 'change' }
-        ],
-        agree: [
-          {
-            validator: (rule, value, callback) => {
-              if (value) {
-                callback()
-              } else {
-                callback(new Error('请勾选同意用户协议'))
-              }
-            },
-            trigger: 'blur'
-          }
         ]
+        // agree: [
+        //   {
+        //     validator: (rule, value, callback) => {
+        //       if (value) {
+        //         callback()
+        //       } else {
+        //         callback(new Error('请勾选同意用户协议'))
+        //       }
+        //     },
+        //     trigger: 'blur'
+        //   }
+        // ]
       }
     }
   },
   methods: {
-    onLogin () {
-      this.$refs.loginFormRef.validate().then(() => {
-        this.getLogin()
-      })
-    },
     register () {
-      this.$router.push({
-        path: '/registe'
-      })
-    },
-    getLogin () {
-      login(this.loginForm).then(res => {
-        if (res.data.msg === '用户名或者密码不正确') {
-          return this.$message.error('用户名或者密码不正确或登录身份不正确')
-        }
-        if (res.data.code === 0) {
-          this.$message.success('登录成功')
-          // 本地存储智能存储字符串 通过 JSON 转为字符串进行存储
-          sessionStorage.setItem('role', JSON.stringify(res.data.data.identity))
-          sessionStorage.setItem('username', JSON.stringify(res.data.data.username))
-          sessionStorage.setItem('userId', JSON.stringify(res.data.data.id))
-          if (res.data.data.identity === '2') {
-            sessionStorage.setItem('userCookie', res.data.data.userCookie)
-          }
-          sessionStorage.setItem('token', JSON.stringify('5f23bf7c-5bcc-4189-8d9c-43aea35d0471'))
+      this.$refs.loginFormRef.validate().then(() => {
+        addUserData(this.loginForm).then(() => {
+          this.$message.success('添加用户成功')
           this.$router.push({
-            name: 'home'
+            path: '/login'
           })
-        }
-      }).catch(err => {
-        console.log(err)
-        this.$message.error('登陆失败')
+        })
       })
     }
   }
@@ -129,8 +105,8 @@ export default {
          .login_form{
              padding: 20px 50px 40px 50px;
              .login_btn{
-                //  width: 100%;
-                text-align: center;
+                 width: 100%;
+                // text-align: center;
              }
 
          }

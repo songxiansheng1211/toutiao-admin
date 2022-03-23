@@ -10,12 +10,13 @@ import Type from '@/views/type/index.vue'
 import Register from '@/views/register/index.vue'
 import Report from '@/views/report/index.vue'
 import Check from '@/views/check/index.vue'
-
+import Registe from '@/views/login/registe.vue'
 Vue.use(VueRouter)
 
 const routes = [
   // { path: '/', redirect: '/login' },
   { path: '/login', name: 'login', component: Login },
+  { path: '/registe', name: 'registe', component: Registe },
   {
     path: '/',
     component: Layout,
@@ -38,7 +39,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.path === '/login') return next()
+  if (to.path === '/login' || to.path === '/registe') return next()
   // 获取token
   const tokenStr = sessionStorage.getItem('token')
   if (!tokenStr) return next('/login')

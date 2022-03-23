@@ -32,9 +32,11 @@
         </template>
       </el-table-column>
       <el-table-column prop="createTime" label="创建时间" align="center"></el-table-column>
-      <el-table-column label="操作" align="center">
+      <el-table-column label="操作" align="center" width="200">
           <template #default="{row}">
-          <el-button type="text" size="mini" @click="checkDetail(row)" v-if="row.result !== '1' && row.result !== '0'">上传检查结果</el-button>
+          <el-button type="text" size="mini" @click="checkDetail(row)" v-if="row.result !== '1' && row.result !== '0' && row.exam === '1'">上传检查结果</el-button>
+          <el-button type="primary" size="mini" @click="check(row.id, '1')" v-if="row.exam === '0'">审核通过</el-button>
+          <el-button type="danger" size="mini" @click="check(row.id, '2')" v-if="row.exam === '0'">驳回</el-button>
           </template>
       </el-table-column>
     </el-table>
@@ -70,7 +72,7 @@
 </template>
 <script>
 import { getRecordData } from '@/api/type.js'
-import { resultData } from '@/api/org.js'
+import { resultData, checkOrder } from '@/api/org.js'
 export default {
   data () {
     return {
@@ -123,6 +125,18 @@ export default {
         this.getTableData()
       }).finally(() => {
         this.saveLoading = false
+      })
+    },
+    check (id, exam) {
+      checkOrder(id, exam).then(res => {
+        if (exam === '1') {
+          this.$message.success('审核通过')
+          this.getTableData()
+        }
+        if (exam === '2') {
+          this.$message.error('审核驳回')
+          this.getTableData()
+        }
       })
     }
   }
