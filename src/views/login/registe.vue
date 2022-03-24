@@ -67,13 +67,24 @@ export default {
         //     trigger: 'blur'
         //   }
         // ]
+        // if (res.code === 1 || res.msg === '用户名已存在') {
+        //     this.$message.error('注册失败，请检查用户名是否存在')
+        //   }
+        // this.$message.success('添加用户成功')
+        //   this.$router.push({
+        //     path: '/login'
+        //   })
+        // })
       }
     }
   },
   methods: {
     register () {
       this.$refs.loginFormRef.validate().then(() => {
-        addUserData(this.loginForm).then(() => {
+        addUserData(this.loginForm).then((res) => {
+          if (res.data.code === 1 && res.data.msg === '用户名已存在') {
+            return this.$message.error('注册失败，请检查用户名是否存在')
+          }
           this.$message.success('添加用户成功')
           this.$router.push({
             path: '/login'
