@@ -1,7 +1,7 @@
 <template>
     <div class="container-warp">
         <div class="user-warp">Hello,{{orgItem}}</div>
-        <div class="system-warp">欢迎使用核算预约管理系统！</div>
+        <div class="system-warp">欢迎使用核酸预约管理系统！</div>
     </div>
 </template>
 <script>

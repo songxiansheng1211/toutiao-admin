@@ -3,7 +3,7 @@
   <div class="login_box">
     <div class="box_header">
         <img src="./guanli.png" class="login_img">
-        <div class="login-text">核算预约管理系统</div>
+        <div class="login-text">核酸预约管理系统</div>
     </div>
       <el-form :model="loginForm"  ref="loginFormRef" :rules="loginFormRules" size='mini' class="login_form">
         <el-form-item prop="username">
@@ -14,8 +14,8 @@
         </el-form-item>
          <el-form-item prop="identity">
            <el-select v-model="loginForm.identity" placeholder="请选择登录身份" style="width:260px;">
-             <el-option label="系统管理员" value="1"></el-option>
-             <el-option label="医院机构" value="2"></el-option>
+             <!-- <el-option label="系统管理员" value="1"></el-option>
+             <el-option label="医院机构" value="2"></el-option> -->
              <el-option label="用户" value="3"></el-option>
            </el-select>
         </el-form-item>
@@ -43,7 +43,7 @@ export default {
         username: '',
         password: '',
         // agree: false,
-        identity: ''
+        identity: '3'
       },
       loginFormRules: {
         username: [

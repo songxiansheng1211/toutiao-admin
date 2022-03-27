@@ -3,7 +3,7 @@
   <div class="login_box">
     <div class="box_header">
         <img src="./guanli.png" class="login_img">
-        <div class="login-text">核算预约管理系统</div>
+        <div class="login-text">核酸预约管理系统</div>
     </div>
       <el-form :model="loginForm"  ref="loginFormRef" :rules="loginFormRules" size='mini' class="login_form">
         <el-form-item prop="username">
